@@ -1,48 +1,32 @@
 
-early = globals()["early"]
-
 
 name = "pyblish_qml"
 
 description = "Pyblish QML frontend for Maya 2013+, Houdini 11+, " \
               "Nuke 8+ and more"
 
-
-@early()
-def __payload():
-    from earlymod import util
-
-    def get_version(data):
-        import subprocess
-        data["version"] = subprocess.check_output(
-            ["python", "setup.py", "--version"],
-            universal_newlines=True,
-            cwd=data["repo"],
-        ).strip()
-
-    return util.git_build_clone(
-        url="https://github.com/MoonShineVFX/pyblish-qml.git",
-        branch="production",
-        tag="7939aaf0cf7f60c005f1de35083168e76ef2c54f",
-        callbacks=[get_version]
-    )
+version = "1.11.4"
 
 
-@early()
-def version():
-    data = globals()["this"].__payload
-
-    version_str = data["version"]
-    branch_name = data["branch"]
-
-    major, minor, patch = version_str.split(".")
-    return "%s-%s.%s.%s" % (branch_name, major, minor, patch)
-
-
-@early()
-def authors():
-    data = globals()["this"].__payload
-    return data["authors"]
+authors = [
+    "Marcus Ottosson",
+    "Toke Jepsen",
+    "David Lai",
+    "davidlatwe",
+    "Roy Nieterau",
+    "nasefbasdf",
+    "Alan Fregtman",
+    "Jasper van Nieuwenhuizen",
+    "Lars van der Bijl",
+    "davidpower",
+    "linez69",
+    "Renaud Lessard Larouche",
+    "liorbenhorin",
+    "unknown",
+    "Coyode",
+    "Felix Yan",
+    "Yamahigashi",
+]
 
 
 tools = [
@@ -56,14 +40,7 @@ requires = [
 
 
 private_build_requires = ["rezutil-1"]
-
-
-@early()
-def build_command():
-    data = globals()["this"].__payload
-    return "python -m rezutil build {root}".format(
-        root=data["repo"],
-    )
+build_command = "python {root}/rezbuild.py {install}"
 
 
 # Set up environment
@@ -72,7 +49,7 @@ def commands():
     import subprocess
     env = globals()["env"]
 
-    env.PYTHONPATH.prepend("{root}")
+    env.PYTHONPATH.prepend("{root}/payload/lib")
 
     # Get python executable path for Pyblish finding python and pyqt5
     # This is for Houdini.
