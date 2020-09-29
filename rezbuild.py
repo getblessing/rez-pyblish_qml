@@ -5,8 +5,8 @@ import shutil
 import subprocess
 
 
-url_prefix = "https://github.com/pyblish/pyblish-qml/archive"
-filename = "1.11.4.zip"
+url_prefix = "https://github.com/MoonShineVFX/pyblish-qml/archive"
+filename = "1.11.4.p1.zip"
 
 
 def build(source_path, build_path, install_path, targets=None):
