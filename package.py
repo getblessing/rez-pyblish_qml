@@ -5,7 +5,7 @@ name = "pyblish_qml"
 description = "Pyblish QML frontend for Maya 2013+, Houdini 11+, " \
               "Nuke 8+ and more"
 
-version = "1.11.4"
+version = "1.11.4.p1"
 
 
 authors = [
